@@ -1,9 +1,11 @@
 import os
 import streamlit as st
 import pandas as pd
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 sns.set()
+
 
 from statsmodels.tsa.seasonal import seasonal_decompose
 from pylab import rcParams
@@ -28,18 +30,28 @@ def main():
             """)
 
     file_ = st.file_uploader("Load .csv file")
+
+    def check_nans(df):
+        return df.isnull().sum().sum()
+         
+
     if file_:
             
         print(file_);
         df = pd.read_csv(file_, index_col='TimeStamp', parse_dates=True)
+        any_nans = check_nans(df)
+         
+                                          
+        if any_nans > 0:
+            df = df.dropna(how='any')
+                    
         st.markdown(f"The dataframe below has been loaded (only first 5 rows shown): ")
-        
         st.write(df.head())
-    
+
         columns = list(df.columns)
         st.sidebar.title("Visualize Data")
         st.sidebar.text("This function allows you to plot \na Distribution Graph and Trend and \nit also provides Descriptive Statistics \nof the variable of interest")
-      
+        
         variable = st.sidebar.selectbox("Select variable to plot", columns, index=0)
         if st.sidebar.button("Click to plot data:"):
             st.write(df[variable])
@@ -73,7 +85,7 @@ def main():
             st.subheader(f'{value} decomposed data')
             decomp = seasonal_decompose(df[value], model='add', freq=365)
             decomp.plot()
-            st.pyplot()
+            st.pyplot() 
 
         # Find Correlations
         st.sidebar.title("Find Correlations")
@@ -95,7 +107,7 @@ def main():
             st.dataframe(df_corr)
             st.write(df_corr.style.background_gradient(cmap='coolwarm'))
         
-    
+
     else:
         st.warning("Please load a .csv file")
 
