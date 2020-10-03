@@ -11,8 +11,8 @@ from statsmodels.tsa.seasonal import seasonal_decompose
 from pylab import rcParams
 rcParams['figure.figsize'] = 12,8
 
+st.beta_set_page_config(page_title='ROC Correlation Tool',page_icon='📈')
 
- 
 def main():
 
     def set_environ():
@@ -28,7 +28,8 @@ def main():
             which contains the time stamps of each data sample.  
             The subsequent columns are the variables/tags we need to analyze.
             """)
-
+    st.set_option('deprecation.showfileUploaderEncoding', False)
+    st.set_option('deprecation.showPyplotGlobalUse', False)
     file_ = st.file_uploader("Load .csv file")
 
     def check_nans(df):
