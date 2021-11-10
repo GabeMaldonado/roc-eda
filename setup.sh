@@ -7,7 +7,7 @@ email = \"egmaldonado10@gmail.com.com\"\n\
 
 echo "\
 [server]\n\
-
+maxUploadSize=1028\n\
 headless = true\n\
 enableCORS=false\n\
 port = $PORT\n\

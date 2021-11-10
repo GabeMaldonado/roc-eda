@@ -39,11 +39,14 @@ def main():
     if file_:
             
         print(file_);
-        df = pd.read_csv(file_, index_col='TimeStamp', parse_dates=True)
+        chunksize = 5000
+        df_chunks = pd.read_csv(file_, index_col='Date', parse_dates=True,chunksize=chunksize)
+        df = pd.concat(df_chunks, ignore_index=True)
         any_nans = check_nans(df)
          
                                           
         if any_nans > 0:
+
             df = df.dropna(how='any')
                     
         st.markdown(f"The dataframe below has been loaded (only first 5 rows shown): ")
@@ -106,7 +109,7 @@ def main():
             st.markdown("""--------------------------------------------------------------------------------""")
             
             st.dataframe(df_corr)
-            st.write(df_corr.style.background_gradient(cmap='coolwarm'))
+            #st.write(df_corr.style.background_gradient(cmap='coolwarm'))
         
 
     else:
