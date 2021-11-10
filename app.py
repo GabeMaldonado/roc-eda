@@ -40,8 +40,9 @@ def main():
             
         print(file_);
         chunksize = 5000
-        df_chunks = pd.read_csv(file_, index_col='Date', parse_dates=True,chunksize=chunksize)
-        df = pd.concat(df_chunks, ignore_index=True)
+        df_chunks = pd.read_csv(file_, index_col=0, parse_dates=True,chunksize=chunksize)
+        df = pd.concat(df_chunks, ignore_index=False)
+        #df[[0]] = pd.to_datetime(df[[0]])
         any_nans = check_nans(df)
          
                                           
@@ -50,7 +51,8 @@ def main():
             df = df.dropna(how='any')
                     
         st.markdown(f"The dataframe below has been loaded (only first 5 rows shown): ")
-        st.write(df.head())
+        st.dataframe(df.head())
+        st.write(df.index)
 
         columns = list(df.columns)
         st.sidebar.title("Visualize Data")
@@ -108,7 +110,8 @@ def main():
             st.markdown("""Negative coefficients indicate negative relationships""")
             st.markdown("""--------------------------------------------------------------------------------""")
             
-            st.dataframe(df_corr)
+            
+            st.table(df_corr)
             #st.write(df_corr.style.background_gradient(cmap='coolwarm'))
         
 
