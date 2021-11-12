@@ -42,7 +42,6 @@ def main():
         chunksize = 5000
         df_chunks = pd.read_csv(file_, index_col=0, parse_dates=True,chunksize=chunksize)
         df = pd.concat(df_chunks, ignore_index=False)
-        #df[[0]] = pd.to_datetime(df[[0]])
         any_nans = check_nans(df)
          
                                           
@@ -52,8 +51,7 @@ def main():
                     
         st.markdown(f"The dataframe below has been loaded (only first 5 rows shown): ")
         st.dataframe(df.head())
-        st.write(df.index)
-
+        
         columns = list(df.columns)
         st.sidebar.title("Visualize Data")
         st.sidebar.text("This function allows you to plot \na Distribution Graph and Trend and \nit also provides Descriptive Statistics \nof the variable of interest")
@@ -98,7 +96,7 @@ def main():
         st.sidebar.text("This function calculates\nCorrelation Coeffcients and\nplots a Correlation Matrix")
         if st.sidebar.button("Run Correlation Calc"):
                     
-            df_corr = df.corr()
+            df_corr = df.corr().abs()
             st.header('Correlation Matrix:')
             # Info about correlations                        
             st.markdown("""### Interpreting Correlations:""")

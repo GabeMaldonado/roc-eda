@@ -11,4 +11,6 @@ maxUploadSize=1028\n\
 headless = true\n\
 enableCORS=false\n\
 port = $PORT\n\
+[browser]\n\
+gatherUsageStats = false\n\
 " > ~/.streamlit/config.toml
