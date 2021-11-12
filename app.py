@@ -111,7 +111,10 @@ def main():
             st.markdown("""--------------------------------------------------------------------------------""")
             
             
-            st.table(df_corr)
+            #st.write(df_corr)
+            st.write("Correlation has been completed")
+
+            st.write(df_corr[:1000])
             #st.write(df_corr.style.background_gradient(cmap='coolwarm'))
         
 
