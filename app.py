@@ -96,10 +96,11 @@ def main():
         st.sidebar.text("This function calculates\nCorrelation Coeffcients and\nplots a Correlation Matrix")
         if st.sidebar.button("Run Correlation Calc"):
                     
-            df_corr = df.corr().abs()
+            df_corr = df.corr()
             st.header('Correlation Matrix:')
             # Info about correlations                        
             st.markdown("""### Interpreting Correlations:""")
+
             st.markdown("""Looking at the correlation matrix below, we will be able to identify which and how strongly the variables are correlated.""")
             st.markdown("""A correlation coefficient of **1** indicates that the variables have a perfect positive relationship """)
             st.markdown("""A correlation coefficient of **0.8** indicates a strong positive correlation""")
@@ -107,12 +108,15 @@ def main():
             st.markdown("""A correlation coefficient of **0** indicates no correlation between variables""")
             st.markdown("""Negative coefficients indicate negative relationships""")
             st.markdown("""--------------------------------------------------------------------------------""")
+            st.warning("For large datasets, correlation matrix will only display up to 1000 variables")
             
-            
-            #st.write(df_corr)
-            st.write("Correlation has been completed")
+            st.write(df_corr[:1000])
 
-            st.write(df_corr)
+            #st.write(df_corr)
+            st.markdown("### Highly-correlated pairs")
+            st.write(df_corr.unstack().sort_values(ascending=False).drop_duplicates())
+
+            
             #st.write(df_corr.style.background_gradient(cmap='coolwarm'))
         
 
