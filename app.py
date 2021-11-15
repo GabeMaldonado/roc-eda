@@ -110,7 +110,7 @@ def main():
             st.markdown("""--------------------------------------------------------------------------------""")
             st.warning("For large datasets, correlation matrix will only display up to 1000 variables")
             
-            st.write(df_corr[:1000])
+            st.write(df_corr[:500])
 
             #st.write(df_corr)
             st.markdown("### Highly-correlated pairs")
