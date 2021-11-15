@@ -108,7 +108,7 @@ def main():
             st.markdown("""A correlation coefficient of **0** indicates no correlation between variables""")
             st.markdown("""Negative coefficients indicate negative relationships""")
             st.markdown("""--------------------------------------------------------------------------------""")
-            st.warning("For large datasets, correlation matrix will only display up to 1000 variables")
+            st.warning("For large datasets, correlation matrix will only display up to 500 variables")
             
             st.write(df_corr[:500])
 
